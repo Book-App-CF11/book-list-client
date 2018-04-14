@@ -1,34 +1,19 @@
 'use strict';
 
+var app = app || {};
+
 (function(module){
 
-  function Book(author, title, isbn, image_url, description) {
-    this.author = author;
-    this.title = title;
-    this.isbn = isbn;
-    this.image_url = image_url;
-    this.description = description;
-  }
+  const bookView = {};
 
-  Book.toHtml = () => {
-    const template = Handlebars.compile($('#book-list-template').text());
-    app.Book.author().forEach(list => $('#book-list').append(template(list)));
+  bookView.initIndexPage = function() {
+    $('.container').hide();
+    $('.book-view').show();
+    app.Book.all.map(book => $('book-list').append(book.toHtml()));
   }
-//   const template = Handlebars.compile($('#view-template').text());
+  module.bookView = bookView;
 
 })(app);
-
-
-
-
-
-
-
-// articleView.initAdminPage = () => {
-//     const template = Handlebars.compile($('#stats-template').text());
-    
-
-
-//   // REVIEW: We use .forEach() here because we are relying on the side-effects of the callback function: appending to the DOM. The callback is not required to return anything.
-//     app.Article.numWordsByAuthor().forEach(stat => $('.author-stats').append(template(stat)));
-
+$(function() {
+  app.Book.fetchAll(app.bookView.initIndexPage);
+})
