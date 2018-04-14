@@ -5,12 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Book App</title>
+    <script id="view-template" type="text/x-handlebars-template">
+        <li><b>{{author}}</b>: {{title}}</li>
+        </script>
 </head>
 <body>
     <h1>Book App</h1>
+    <section>
+        <ul id='view'></ul>
+
+    </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
     $.get('http://localhost:3000/ping').then(res => console.log(res));</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="scripts/views/book-view.js"></script>
 </body>
 </html>
