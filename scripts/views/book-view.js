@@ -1,6 +1,6 @@
 'use strict';
 
-var app = app || {};
+let app = app || {};
 
 (function(module){
 
