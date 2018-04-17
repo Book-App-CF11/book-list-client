@@ -6,7 +6,7 @@ const ENV = {};
 
 ENV.isProduction = window.location.protocol === 'https:';
 ENV.productionApiUrl = 'https://git.heroku.com/michael-booklist.git';
-ENV.developmentApiUrl = 'http;//localhost:3000';
+ENV.developmentApiUrl = 'http://localhost:3000';
 ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
 (function(module){
@@ -32,17 +32,19 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     const template = Handlebars.compile($('#book-list-template').text());
     return template(this);
   }
-  //   const template = Handlebars.compile($('#view-template').text());
 
   Book.all = [];
 
   Book.loadAll = (rows) => {
-    Book.all = rows.sort((a,b) => b.title -a.title).map(book = new Book(book));
+    Book.all = rows.sort((a,b) => b.title -a.title).map(book => new Book(book));
   }
-  Book.fetchAll = callback =>
-    $.get(`/api/v1/books`)
+  Book.fetchAll = (callback) => {
+    $.get(`${ENV.apiUrl}/api/v1/books`)
       .then(Book.loadAll)
       .then(callback)
       .catch(errorCallback);
+  }
+
+  module.Book = Book;
 
 })(app);

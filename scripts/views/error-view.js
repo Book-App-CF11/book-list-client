@@ -1,6 +1,6 @@
 'use strict'
 
-let app = app || {};
+var app = app || {};
 
 (function(module){
 
@@ -10,10 +10,10 @@ let app = app || {};
     $('.container').hide();
     $('.error-view').show();
     $('#error-message').empty();
-    template = Handlebars.compile($('#error-template').text());
+    let template = Handlebars.compile($('#error-template').text());
     $('#error-message').append(template(err));
   };
 
-module.errorView = errorView;
+  module.errorView = errorView;
 
 })(app);
