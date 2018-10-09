@@ -16,13 +16,13 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     module.errorView.initErrorPage(err);
   }
 
-  //   function Book(author, title, isbn, image_url, description) {
-  //     this.author = author;
+  //   function Book(bookObj) {
+  //     this.author = bookObj.author;
   //     this.title = title;
   //     this.isbn = isbn;
   //     this.image_url = image_url;
   //     this.description = description;
-  //   }
+  //   }    check out Object.assign (look it up)
 
   function Book(bookObj) {
     Object.keys(bookObj).forEach(key => this[key] = bookObj[key]);
@@ -39,7 +39,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     Book.all = rows.sort((a,b) => b.title -a.title).map(book => new Book(book));
   }
   Book.fetchAll = (callback) => {
-    $.get(`${ENV.apiUrl}/api/v1/books`)
+    $.getJSON(`${ENV.apiUrl}/api/v1/books`) //added JSON
       .then(Book.loadAll)
       .then(callback)
       .catch(errorCallback);
